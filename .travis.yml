@@ -1,0 +1,13 @@
+language: java
+
+install:
+    - |
+        git clone https://github.com/seppo0010/rlite.git \
+        && pushd rlite \
+        && make \
+        && sudo make install \
+        && popd \
+        && mvn install -DskipTests=true
+
+notifications:
+  email: false

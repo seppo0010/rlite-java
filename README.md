@@ -13,7 +13,7 @@ Then clone this repository.
 
 ## Usage
 
-### Using redis-java
+### Using rlite-java
 
 ```java
 import com.rlite.RliteClient;

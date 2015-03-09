@@ -1,6 +1,7 @@
 package com.sun.jna.examples;
 
 import java.io.UnsupportedEncodingException;
+import java.lang.System;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -78,15 +79,35 @@ public class RliteTest {
         Assert.assertEquals(reply[1], 0);
     }
 
-    @Test
-    public void persistenceTest() throws UnsupportedEncodingException {
+    private void runSetGet() throws UnsupportedEncodingException {
         c = new RliteClient("mydb.rld");
         String argv0[] = {"SET", "key", "value"};
         c.command(argv0);
+        c.close();
 
         c = new RliteClient("mydb.rld");
         String argv[] = {"GET", "key"};
         String reply = (String)c.command(argv);
         Assert.assertEquals("value", reply);
+        c.close();
+    }
+
+    @Test
+    public void persistenceTest() throws UnsupportedEncodingException {
+        runSetGet();
+
+        System.gc();
+        System.gc();
+        System.gc();
+        System.gc();
+
+        runSetGet();
+
+        System.gc();
+        System.gc();
+        System.gc();
+        System.gc();
+
+        runSetGet();
     }
 }

@@ -99,7 +99,14 @@ public class RliteClient {
         return command(argv.toArray(new byte[0][0]), binary);
     }
 
+    public void close() {
+        if (c != null) {
+            RliteLibrary.INSTANCE.rliteFree(c);
+        }
+        c = null;
+    }
+
     protected void finalize() {
-        RliteLibrary.INSTANCE.rliteFree(c);
+        close();
     }
 }

@@ -1,13 +1,15 @@
 language: java
 
+sudo: false
+
 install:
     - |
         git clone https://github.com/seppo0010/rlite.git \
         && pushd rlite \
         && make \
-        && sudo make install \
-        && popd \
-        && mvn install -DskipTests=true
+        && popd
+script:
+    - LD_LIBRARY_PATH=rlite/src/ mvn test -B
 
 notifications:
   email: false
